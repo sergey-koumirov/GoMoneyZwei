@@ -1,0 +1,105 @@
+package services
+
+import (
+	"GoMoneyZwei/server/db"
+	"GoMoneyZwei/server/structs"
+	"strings"
+)
+
+//AccountsIndex - load currencies
+func AccountsIndex() []structs.ViAccount {
+	records := make([]db.Account, 0)
+	db.DB.Preload("Currency").Find(&records)
+
+	result := make([]structs.ViAccount, len(records))
+
+	for i, r := range records {
+		result[i].CopyFrom(r)
+	}
+
+	return result
+}
+
+//AccountsCreate - create
+func AccountsCreate(params map[string]interface{}) (db.Account, structs.RecordErrors) {
+	errors := make(structs.RecordErrors)
+	result := db.Account{}
+
+	validateAndSet(params, &result, errors)
+
+	if len(errors) == 0 {
+		db.DB.Create(&result)
+	}
+
+	return result, errors
+}
+
+//AccountsUpdate - update
+func AccountsUpdate(id int64, params map[string]interface{}) (db.Account, structs.RecordErrors) {
+	errors := make(structs.RecordErrors)
+	result := db.Account{ID: id}
+
+	validateAndSet(params, &result, errors)
+
+	if len(errors) == 0 {
+		db.DB.Save(&result)
+	}
+
+	return result, errors
+}
+
+//AccountsDelete - delete
+func AccountsDelete(id int64) structs.RecordErrors {
+	errors := make(structs.RecordErrors)
+	result := db.Currency{ID: id}
+
+	validateUsesCurrencyID2("id", id, errors)
+
+	if len(errors) == 0 {
+		db.DB.Delete(&result)
+	}
+
+	return errors
+}
+
+func validateUsesCurrencyID2(f string, currencyID int64, errors structs.RecordErrors) {
+	var count int64
+	db.DB.Model(&db.Account{}).Where("currency_id = ?", currencyID).Count(&count)
+
+	if count > 0 {
+		errors[f] = append(errors[f], "used in accounts")
+	}
+}
+
+func validateCurrencyIDExists(f string, currencyID int64, errors structs.RecordErrors) {
+	var count int64
+	db.DB.Model(&db.Currency{}).Where("id = ?", currencyID).Count(&count)
+
+	if count == 0 {
+		errors[f] = append(errors[f], "currency not exists")
+	}
+}
+
+func validateAndSet(params map[string]interface{}, result *db.Account, errors structs.RecordErrors) {
+	result.Name = strings.TrimSpace(params["name"].(string))
+	result.Tag = strings.TrimSpace(params["tag"].(string))
+
+	validateIsBlank("name", result.Name, errors)
+	validateIsBlank("tag", result.Tag, errors)
+	validateInSet("tag", result.Tag, []string{"expense", "income", "balance", "stocks"}, errors)
+
+	valid := !validateIsNil("currency", params["currency_id"], errors)
+	if valid {
+		result.CurrencyID = int64(params["currency_id"].(float64))
+		validateCurrencyIDExists("currency", result.CurrencyID, errors)
+	}
+
+	if validateIsNil("visible", params["visible"], errors) {
+		if params["visible"].(bool) {
+			result.Visible = 1
+		} else {
+			result.Visible = 0
+		}
+	}
+
+}
