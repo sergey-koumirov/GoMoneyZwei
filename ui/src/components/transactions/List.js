@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Table, Row, Col, Button, Modal, Badge} from "react-bootstrap"
+import {Table, Row, Col, Button, Modal} from "react-bootstrap"
 import {deleteAccount} from "../../api"
 
 const List = ({records, setRecord, setMode, loadRecords}) => {
@@ -38,10 +38,6 @@ const List = ({records, setRecord, setMode, loadRecords}) => {
                     <thead>
                         <tr>
                             <th><Button variant="outline-primary" size="sm" onClick={setNewMode}>New</Button></th>
-                            <th>Name</th>
-                            <th>Currency</th>
-                            <th>Tag</th>
-                            <th>Visible</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -50,12 +46,6 @@ const List = ({records, setRecord, setMode, loadRecords}) => {
                             return (
                                 <tr key={record.id}>
                                     <td><a href="#" onClick={ (e)=>{ setEditMode(record);e.preventDefault() } }>{record.id}</a></td>
-                                    <td><a href="#" onClick={ (e)=>{ setEditMode(record);e.preventDefault() } }>{record.name}</a></td>
-                                    <td>{record.currency.name}</td>
-                                    <td>{record.tag}</td>
-                                    <td>
-                                        {record.visible ? <Badge variant="success">Yes</Badge> : <Badge variant="secondary">No</Badge>}
-                                    </td>
                                     <td>
                                         <Button variant="outline-primary" size="sm" onClick={()=>{handleShow(record)}}>Delete</Button>
                                     </td>

@@ -66,4 +66,13 @@ export const deleteAccount = async (payload) =>{
         })
 }
 
+
+// -------------------TRANSACTIONS--------------------------
+export const listTransactions = async (page) =>{
+    return await apiClient.get(`/api/transactions?page=${page}`)
+        .then(({data: {transactions, page, total_pages}}) => {
+            return {transactions, page, total_pages};
+        })
+}
+
 export default apiClient

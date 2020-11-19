@@ -41,6 +41,9 @@ func main() {
 		api.POST("/accounts", controllers.AccountsCreate)
 		api.PUT("/accounts/:id", controllers.AccountsUpdate)
 		api.DELETE("/accounts/:id", controllers.AccountsDelete)
+
+		api.GET("/transactions", controllers.TransactionsIndex)
+
 	}
 
 	r.Run()

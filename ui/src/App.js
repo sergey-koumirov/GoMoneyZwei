@@ -1,7 +1,7 @@
 import React from "react";
 import { Router } from "@reach/router";
 import Summary from "./components/Summary"
-import Transactions from "./components/Transactions"
+import TransactionsPage from "./components/transactions/Page"
 import AccountsPage from "./components/accounts/Page"
 import CurrenciesPage from "./components/currencies/Page"
 import {Nav, Container} from "react-bootstrap"
@@ -26,7 +26,7 @@ const App = () => {
             </Nav>    
             <Router>
                 <Summary path="/" />
-                <Transactions path="/transactions" />
+                <TransactionsPage path="/transactions" />
                 <AccountsPage path="/accounts" />
                 <CurrenciesPage path="/currencies" />
             </Router>

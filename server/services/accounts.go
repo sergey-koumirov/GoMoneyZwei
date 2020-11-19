@@ -51,9 +51,9 @@ func AccountsUpdate(id int64, params map[string]interface{}) (db.Account, struct
 //AccountsDelete - delete
 func AccountsDelete(id int64) structs.RecordErrors {
 	errors := make(structs.RecordErrors)
-	result := db.Currency{ID: id}
+	result := db.Account{ID: id}
 
-	validateUsesCurrencyID2("id", id, errors)
+	validateUsesAccountID("id", id, errors)
 
 	if len(errors) == 0 {
 		db.DB.Delete(&result)
@@ -62,12 +62,12 @@ func AccountsDelete(id int64) structs.RecordErrors {
 	return errors
 }
 
-func validateUsesCurrencyID2(f string, currencyID int64, errors structs.RecordErrors) {
+func validateUsesAccountID(f string, accountID int64, errors structs.RecordErrors) {
 	var count int64
-	db.DB.Model(&db.Account{}).Where("currency_id = ?", currencyID).Count(&count)
+	db.DB.Model(&db.Transaction{}).Where("account_from_id = ? or account_to_id = ?", accountID, accountID).Count(&count)
 
 	if count > 0 {
-		errors[f] = append(errors[f], "used in accounts")
+		errors[f] = append(errors[f], "used in transactions")
 	}
 }
 
@@ -94,7 +94,9 @@ func validateAndSet(params map[string]interface{}, result *db.Account, errors st
 		validateCurrencyIDExists("currency", result.CurrencyID, errors)
 	}
 
-	if validateIsNil("visible", params["visible"], errors) {
+	visibleValid := !validateIsNil("visible", params["visible"], errors)
+
+	if visibleValid {
 		if params["visible"].(bool) {
 			result.Visible = 1
 		} else {
