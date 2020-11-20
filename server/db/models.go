@@ -31,7 +31,7 @@ func (Account) TableName() string {
 //Transaction - model
 type Transaction struct {
 	ID            int64  `gorm:"column:id"`
-	Description   string `gorm:"column:desription"`
+	Description   string `gorm:"column:description"`
 	Dt            string `gorm:"column:dt"`
 	AccountFromID int64  `gorm:"column:account_from_id"`
 	AmountFrom    int64  `gorm:"column:amount_from"`

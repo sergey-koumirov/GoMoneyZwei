@@ -17,9 +17,10 @@
     "jquery": "^3.5.1",
     "parcel-bundler": "^1.12.4",
     "popper.js": "^1.16.1",
-    "react": "^17.0.1",
+    "react": "^16.14.0",
     "react-bootstrap": "^1.4.0",
-    "react-dom": "^17.0.1"
+    "react-datepicker": "^3.3.0",
+    "react-dom": "^16.14.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",

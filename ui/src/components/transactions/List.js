@@ -13,7 +13,15 @@ const List = ({records, setRecord, setMode, loadRecords}) => {
     };
 
     const setNewMode = ()=>{
-        setRecord({name: '', tag: '', visible: true, currency: {}})
+        const currDate = new Date()    
+        setRecord({
+            dt: `${currDate.getFullYear()}-${currDate.getMonth()+1}-${currDate.getDate()}`, 
+            description: '', 
+            account_from: {}, 
+            account_to: {}, 
+            amount_from: 0, 
+            amount_to: 0
+        })
         setMode('new')
     }
 
@@ -38,6 +46,12 @@ const List = ({records, setRecord, setMode, loadRecords}) => {
                     <thead>
                         <tr>
                             <th><Button variant="outline-primary" size="sm" onClick={setNewMode}>New</Button></th>
+                            <th>Date</th>
+                            <th>From</th>
+                            <th></th>
+                            <th></th>
+                            <th>To</th>
+                            <th>Description</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -46,6 +60,12 @@ const List = ({records, setRecord, setMode, loadRecords}) => {
                             return (
                                 <tr key={record.id}>
                                     <td><a href="#" onClick={ (e)=>{ setEditMode(record);e.preventDefault() } }>{record.id}</a></td>
+                                    <td><a href="#" onClick={ (e)=>{ setEditMode(record);e.preventDefault() } }>{record.dt}</a></td>
+                                    <td>{record.account_from.name}</td>
+                                    <td>{record.amount_from}</td>
+                                    <td>{record.amount_to}</td>
+                                    <td>{record.account_to.name}</td>
+                                    <td>{record.description}</td>
                                     <td>
                                         <Button variant="outline-primary" size="sm" onClick={()=>{handleShow(record)}}>Delete</Button>
                                     </td>

@@ -16,5 +16,25 @@ func TransactionsIndex(c *gin.Context) {
 
 	transactions, totalPages := services.TransactionsIndex(page)
 
-	c.JSON(200, gin.H{"transactions": transactions, "page": page, "total_pages": totalPages})
+	accounts := services.AccountsIndex()
+
+	c.JSON(
+		200,
+		gin.H{
+			"transactions": transactions,
+			"accounts":     accounts,
+			"page":         page,
+			"total_pages":  totalPages,
+		},
+	)
+}
+
+//TransactionsCreate - create
+func TransactionsCreate(c *gin.Context) {
+	temp := make(map[string]interface{})
+	c.Bind(&temp)
+
+	transaction, errors := services.TransactionsCreate(temp)
+
+	c.JSON(200, gin.H{"transaction": transaction, "errors": errors})
 }

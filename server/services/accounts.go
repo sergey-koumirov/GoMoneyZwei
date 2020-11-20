@@ -25,7 +25,7 @@ func AccountsCreate(params map[string]interface{}) (db.Account, structs.RecordEr
 	errors := make(structs.RecordErrors)
 	result := db.Account{}
 
-	validateAndSet(params, &result, errors)
+	validateAndSetAccount(params, &result, errors)
 
 	if len(errors) == 0 {
 		db.DB.Create(&result)
@@ -39,7 +39,7 @@ func AccountsUpdate(id int64, params map[string]interface{}) (db.Account, struct
 	errors := make(structs.RecordErrors)
 	result := db.Account{ID: id}
 
-	validateAndSet(params, &result, errors)
+	validateAndSetAccount(params, &result, errors)
 
 	if len(errors) == 0 {
 		db.DB.Save(&result)
@@ -80,7 +80,7 @@ func validateCurrencyIDExists(f string, currencyID int64, errors structs.RecordE
 	}
 }
 
-func validateAndSet(params map[string]interface{}, result *db.Account, errors structs.RecordErrors) {
+func validateAndSetAccount(params map[string]interface{}, result *db.Account, errors structs.RecordErrors) {
 	result.Name = strings.TrimSpace(params["name"].(string))
 	result.Tag = strings.TrimSpace(params["tag"].(string))
 

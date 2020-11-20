@@ -43,6 +43,7 @@ func main() {
 		api.DELETE("/accounts/:id", controllers.AccountsDelete)
 
 		api.GET("/transactions", controllers.TransactionsIndex)
+		api.POST("/transactions", controllers.TransactionsCreate)
 
 	}
 
