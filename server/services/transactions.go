@@ -59,6 +59,32 @@ func TransactionsCreate(params map[string]interface{}) (db.Transaction, structs.
 	return result, errors
 }
 
+//TransactionsUpdate - update
+func TransactionsUpdate(id int64, params map[string]interface{}) (db.Transaction, structs.RecordErrors) {
+	errors := make(structs.RecordErrors)
+	result := db.Transaction{ID: id}
+
+	validateAndSetTransaction(params, &result, errors)
+
+	if len(errors) == 0 {
+		db.DB.Save(&result)
+	}
+
+	return result, errors
+}
+
+//TransactionsDelete - delete
+func TransactionsDelete(id int64) structs.RecordErrors {
+	errors := make(structs.RecordErrors)
+	result := db.Transaction{ID: id}
+
+	if len(errors) == 0 {
+		db.DB.Delete(&result)
+	}
+
+	return errors
+}
+
 func validateAndSetTransaction(params map[string]interface{}, result *db.Transaction, errors structs.RecordErrors) {
 
 	if params["description"] == nil {

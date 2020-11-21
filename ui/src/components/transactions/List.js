@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import {Table, Row, Col, Button, Modal} from "react-bootstrap"
-import {deleteAccount} from "../../api"
+import {Table, Row, Col, Button, Modal, Pagination} from "react-bootstrap"
+import {deleteTransaction} from "../../api"
+import MoneyText from "./MoneyText"
 
 const List = ({records, setRecord, setMode, loadRecords}) => {
 
@@ -31,7 +32,7 @@ const List = ({records, setRecord, setMode, loadRecords}) => {
     }
 
     const handleDelete = () => {
-        deleteAccount(toDelete).then(({errors})=>{
+        deleteTransaction(toDelete).then(({errors})=>{
             if (Object.keys(errors).length == 0) {
                 loadRecords()
             }
@@ -42,16 +43,15 @@ const List = ({records, setRecord, setMode, loadRecords}) => {
     return (
         <Row>
             <Col>
-                <Table striped bordered size="sm">
+                <Table bordered size="sm">
                     <thead>
                         <tr>
                             <th><Button variant="outline-primary" size="sm" onClick={setNewMode}>New</Button></th>
-                            <th>Date</th>
-                            <th>From</th>
+                            <th className="text-center">Date</th>
+                            <th className="text-center">From</th>
                             <th></th>
-                            <th></th>
-                            <th>To</th>
-                            <th>Description</th>
+                            <th className="text-center">To</th>
+                            <th className="text-center">Description</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -62,8 +62,9 @@ const List = ({records, setRecord, setMode, loadRecords}) => {
                                     <td><a href="#" onClick={ (e)=>{ setEditMode(record);e.preventDefault() } }>{record.id}</a></td>
                                     <td><a href="#" onClick={ (e)=>{ setEditMode(record);e.preventDefault() } }>{record.dt}</a></td>
                                     <td>{record.account_from.name}</td>
-                                    <td>{record.amount_from}</td>
-                                    <td>{record.amount_to}</td>
+                                    <td className="text-right">
+                                        <MoneyText record={record}/>
+                                    </td>
                                     <td>{record.account_to.name}</td>
                                     <td>{record.description}</td>
                                     <td>
@@ -74,6 +75,12 @@ const List = ({records, setRecord, setMode, loadRecords}) => {
                         })}                            
                     </tbody>
                 </Table>
+
+                <Pagination size="sm">
+                    <Pagination.Item key={1} active={true}>{1}</Pagination.Item>
+                    <Pagination.Item key={2} active={false}>{2}</Pagination.Item>
+                    <Pagination.Item key={3} active={false}>{3}</Pagination.Item>
+                </Pagination>
 
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>

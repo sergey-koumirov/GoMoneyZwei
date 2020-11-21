@@ -44,6 +44,8 @@ func main() {
 
 		api.GET("/transactions", controllers.TransactionsIndex)
 		api.POST("/transactions", controllers.TransactionsCreate)
+		api.PUT("/transactions/:id", controllers.TransactionsUpdate)
+		api.DELETE("/transactions/:id", controllers.TransactionsDelete)
 
 	}
 

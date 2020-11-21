@@ -40,11 +40,6 @@ const Editor = ({record, setMode, setRecord, loadRecords, accounts}) => {
         setRecord({...record, description: e.target.value})
     }
 
-    const handleDtChange = (e)=>{
-        setRecord({...record, dt: e.target.value})
-    }
-
-
     const handleSubmit = ()=>{
         const f = !!record.id ? updateTransaction : createTransaction
         const payload = {

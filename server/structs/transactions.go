@@ -18,8 +18,8 @@ func (v *ViTransaction) CopyFrom(source db.Transaction) {
 	v.ID = source.ID
 	v.Description = source.Description
 	v.Dt = source.Dt
-	v.AmountFrom = float64(source.AmountFrom) / 100
-	v.AmountTo = float64(source.AmountTo) / 100
+	v.AmountFrom = float64(source.AmountFrom) / 100.0
+	v.AmountTo = float64(source.AmountTo) / 100.0
 	v.AccountFrom.CopyFrom(source.AccountFrom)
 	v.AccountTo.CopyFrom(source.AccountTo)
 }

@@ -20,3 +20,18 @@ table th .btn-sm {
 .form-group {
     position: relative;
 }
+
+.currency {
+    color: #999999;
+    font-size: xx-small;
+    margin-right: 6px;
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    display: inline-block;
+}
+
+
+.gray {
+    color: #cccccc;
+}
+

@@ -58,7 +58,6 @@ export const updateAccount = async (payload) =>{
         })
 }
 
-
 export const deleteAccount = async (payload) =>{
     return await apiClient.delete(`/api/accounts/${payload.id}`)
         .then(({data: {errors}}) => {
@@ -79,6 +78,20 @@ export const createTransaction = async (payload) =>{
     return await apiClient.post(`/api/transactions`, payload)
         .then(({data: {transaction, errors}}) => {
             return {transaction, errors};
+        })
+}
+
+export const updateTransaction = async (payload) =>{
+    return await apiClient.put(`/api/transactions/${payload.id}`, payload)
+        .then(({data: {transaction, errors}}) => {
+            return {transaction, errors};
+        })
+}
+
+export const deleteTransaction = async (payload) =>{
+    return await apiClient.delete(`/api/transactions/${payload.id}`)
+        .then(({data: {errors}}) => {
+            return {errors};
         })
 }
 
