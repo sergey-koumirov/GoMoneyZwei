@@ -10,7 +10,7 @@ import (
 
 //TransactionsIndex - transactions list
 func TransactionsIndex(c *gin.Context) {
-	page, err := strconv.Atoi(c.Param("page"))
+	page, err := strconv.Atoi(c.Query("page"))
 	if err != nil {
 		page = 1
 	}

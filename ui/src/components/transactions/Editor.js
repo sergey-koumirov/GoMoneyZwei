@@ -35,7 +35,6 @@ const Editor = ({record, setMode, setRecord, loadRecords, accounts}) => {
         setRecord({...record, amount_to: e.target.value})
     }
 
-
     const handleDescriptionChange = (e)=>{
         setRecord({...record, description: e.target.value})
     }
@@ -54,7 +53,7 @@ const Editor = ({record, setMode, setRecord, loadRecords, accounts}) => {
 
         f(payload).then(({transaction, errors})=>{
             if (Object.keys(errors).length == 0) {
-                loadRecords()
+                loadRecords(1)
             }else{
                 setErrors(errors)                
             }

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import {Table, Row, Col, Button, Modal, Pagination} from "react-bootstrap"
+import {Table, Row, Col, Button, Modal} from "react-bootstrap"
 import {deleteTransaction} from "../../api"
 import MoneyText from "./MoneyText"
+import TransactionsPagination from "./TransactionsPagination"
 
-const List = ({records, setRecord, setMode, loadRecords}) => {
+const List = ({records, setRecord, setMode, loadRecords, page, setPage, totalPages}) => {
 
     const [show, setShow] = useState(false);
     const [toDelete, setToDelete] = useState({});
@@ -34,7 +35,7 @@ const List = ({records, setRecord, setMode, loadRecords}) => {
     const handleDelete = () => {
         deleteTransaction(toDelete).then(({errors})=>{
             if (Object.keys(errors).length == 0) {
-                loadRecords()
+                loadRecords(1)
             }
         })
         setShow(false)
@@ -76,11 +77,7 @@ const List = ({records, setRecord, setMode, loadRecords}) => {
                     </tbody>
                 </Table>
 
-                <Pagination size="sm">
-                    <Pagination.Item key={1} active={true}>{1}</Pagination.Item>
-                    <Pagination.Item key={2} active={false}>{2}</Pagination.Item>
-                    <Pagination.Item key={3} active={false}>{3}</Pagination.Item>
-                </Pagination>
+                <TransactionsPagination loadRecords={loadRecords} page={page} setPage={setPage} totalPages={totalPages}/>
 
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>

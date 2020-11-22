@@ -9,21 +9,33 @@ const Page = () => {
     const [accounts, setAccounts] = useState([])
     const [mode, setMode] = useState('')
     const [record, setRecord] = useState({})
+    const [page, setPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(1)
 
-    const loadRecords = () =>{
-        listTransactions(1).then(({transactions, accounts})=>{ 
+    const loadRecords = (page) =>{
+        listTransactions(page).then(({transactions, accounts, page, total_pages})=>{ 
             setRecords(transactions)
             setAccounts(accounts)
             setMode('list')
+            setPage(page)
+            setTotalPages(total_pages)
         })
     }
 
     useEffect(() => {        
-        loadRecords()
+        loadRecords(1)
     }, []);
 
     if(mode == 'list'){
-        return (<List records={records} setMode={setMode} setRecord={setRecord} loadRecords={loadRecords}/>)
+        return (
+            <List records={records} 
+                  setMode={setMode} 
+                  setRecord={setRecord} 
+                  loadRecords={loadRecords}
+                  page={page}
+                  setPage={setPage}
+                  totalPages={totalPages}/>
+        )
     }else if(mode == 'new' || mode == 'edit'){
         return (<Editor record={ record } setMode={setMode} setRecord={setRecord} loadRecords={loadRecords} accounts={accounts}/>)
     }else{
