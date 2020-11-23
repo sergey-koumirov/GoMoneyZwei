@@ -35,3 +35,6 @@ table th .btn-sm {
     color: #cccccc;
 }
 
+.buttons button{
+    margin-right: 12px;
+}

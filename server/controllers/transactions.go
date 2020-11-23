@@ -19,11 +19,14 @@ func TransactionsIndex(c *gin.Context) {
 
 	accounts := services.AccountsIndex()
 
+	templates := services.TemplatesIndex()
+
 	c.JSON(
 		200,
 		gin.H{
 			"transactions": transactions,
 			"accounts":     accounts,
+			"templates":    templates,
 			"page":         page,
 			"total_pages":  totalPages,
 		},

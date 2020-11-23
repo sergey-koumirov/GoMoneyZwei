@@ -4,7 +4,7 @@ import {deleteTransaction} from "../../api"
 import MoneyText from "./MoneyText"
 import TransactionsPagination from "./TransactionsPagination"
 
-const List = ({records, setRecord, setMode, loadRecords, page, setPage, totalPages}) => {
+const List = ({records, templates, setRecord, setMode, loadRecords, page, setPage, totalPages}) => {
 
     const [show, setShow] = useState(false);
     const [toDelete, setToDelete] = useState({});
@@ -14,15 +14,16 @@ const List = ({records, setRecord, setMode, loadRecords, page, setPage, totalPag
         setShow(true)
     };
 
-    const setNewMode = ()=>{
+    const setNewMode = (template)=>{
         const currDate = new Date()    
+        const has = !!template && template.id!=0
         setRecord({
             dt: `${currDate.getFullYear()}-${currDate.getMonth()+1}-${currDate.getDate()}`, 
             description: '', 
-            account_from: {}, 
-            account_to: {}, 
-            amount_from: 0, 
-            amount_to: 0
+            account_from: has ? template.account_from : {}, 
+            account_to: has ? template.account_to : {}, 
+            amount_from: has ? template.amount_from : {}, 
+            amount_to: has ? template.amount_to : {}
         })
         setMode('new')
     }
@@ -47,13 +48,14 @@ const List = ({records, setRecord, setMode, loadRecords, page, setPage, totalPag
                 <Table bordered size="sm">
                     <thead>
                         <tr>
-                            <th><Button variant="outline-primary" size="sm" onClick={setNewMode}>New</Button></th>
-                            <th className="text-center">Date</th>
-                            <th className="text-center">From</th>
-                            <th></th>
-                            <th className="text-center">To</th>
-                            <th className="text-center">Description</th>
-                            <th></th>
+                            <th colSpan="7" className="buttons">
+                                <Button variant="outline-primary" size="sm" onClick={ ()=>{setNewMode()} }>New</Button>
+                                {
+                                    templates.map((el,i)=>(
+                                        <Button key={i} variant="outline-primary" size="sm" onClick={ ()=>{setNewMode(el)} }>{el.description}</Button>
+                                    ))
+                                }
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
