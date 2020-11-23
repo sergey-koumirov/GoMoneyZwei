@@ -4,6 +4,7 @@ import Summary from "./components/Summary"
 import TransactionsPage from "./components/transactions/Page"
 import AccountsPage from "./components/accounts/Page"
 import CurrenciesPage from "./components/currencies/Page"
+import TemplatesPage from "./components/templates/Page"
 import {Nav, Container} from "react-bootstrap"
 import NavLink from "./components/NavLink"
 
@@ -18,6 +19,9 @@ const App = () => {
                     <Nav.Link as={NavLink} to="/transactions">Transactions</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
+                    <Nav.Link as={NavLink} to="/templates">Templates</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
                     <Nav.Link as={NavLink} to="/accounts">Accounts</Nav.Link>
                 </Nav.Item>                
                 <Nav.Item>
@@ -27,6 +31,7 @@ const App = () => {
             <Router>
                 <Summary path="/" />
                 <TransactionsPage path="/transactions" />
+                <TemplatesPage path="/templates" />
                 <AccountsPage path="/accounts" />
                 <CurrenciesPage path="/currencies" />
             </Router>

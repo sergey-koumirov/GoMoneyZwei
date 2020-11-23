@@ -95,4 +95,34 @@ export const deleteTransaction = async (payload) =>{
         })
 }
 
+
+// -------------------TEMPLATES--------------------------
+export const listTemplates = async () =>{
+    return await apiClient.get(`/api/templates`)
+        .then(({data: {templates, accounts}}) => {
+            return {templates, accounts};
+        })
+}
+
+export const createTemplate = async (payload) =>{
+    return await apiClient.post(`/api/templates`, payload)
+        .then(({data: {template, errors}}) => {
+            return {template, errors};
+        })
+}
+
+export const updateTemplate = async (payload) =>{
+    return await apiClient.put(`/api/templates/${payload.id}`, payload)
+        .then(({data: {template, errors}}) => {
+            return {template, errors};
+        })
+}
+
+export const deleteTemplate = async (payload) =>{
+    return await apiClient.delete(`/api/templates/${payload.id}`)
+        .then(({data: {errors}}) => {
+            return {errors};
+        })
+}
+
 export default apiClient

@@ -8,8 +8,6 @@ import (
 	"time"
 )
 
-const perPage = 100
-
 //TransactionsIndex - load transctions
 func TransactionsIndex(page int) ([]structs.ViTransaction, int64) {
 	records := make([]db.Transaction, 0)

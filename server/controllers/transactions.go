@@ -52,7 +52,7 @@ func TransactionsUpdate(c *gin.Context) {
 
 	transaction, errors := services.TransactionsUpdate(id, temp)
 
-	c.JSON(200, gin.H{"transactions": transaction, "errors": errors})
+	c.JSON(200, gin.H{"transaction": transaction, "errors": errors})
 }
 
 //TransactionsDelete - delete

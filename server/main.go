@@ -29,6 +29,7 @@ func main() {
 	r.GET("/transactions", indexTmpl)
 	r.GET("/accounts", indexTmpl)
 	r.GET("/currencies", indexTmpl)
+	r.GET("/templates", indexTmpl)
 
 	api := r.Group("/api")
 	{
@@ -47,6 +48,10 @@ func main() {
 		api.PUT("/transactions/:id", controllers.TransactionsUpdate)
 		api.DELETE("/transactions/:id", controllers.TransactionsDelete)
 
+		api.GET("/templates", controllers.TemplatesIndex)
+		api.POST("/templates", controllers.TemplatesCreate)
+		api.PUT("/templates/:id", controllers.TemplatesUpdate)
+		api.DELETE("/templates/:id", controllers.TemplatesDelete)
 	}
 
 	r.Run()
