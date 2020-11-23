@@ -3,11 +3,10 @@ import {listAccounts} from '../../api'
 import List from './List'
 import Editor from './Editor'
 
-const Page = () => {
+const Page = ({mode, setMode}) => {
 
     const [records, setRecords] = useState([])
     const [currencies, setCurrencies] = useState([])
-    const [mode, setMode] = useState('')
     const [record, setRecord] = useState({})
 
     const loadRecords = () =>{

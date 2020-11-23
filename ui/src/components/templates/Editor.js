@@ -62,6 +62,18 @@ const Editor = ({record, setMode, setRecord, loadRecords, accounts}) => {
     return (
         <>
             <Row>   
+                <Col sm={6}>
+                    <Form.Group>
+                        <Form.Label>Description</Form.Label>
+                        <Form.Control size="sm" value={record.description} onChange={handleDescriptionChange} isInvalid={!!errors.description}/>
+                        <Form.Control.Feedback type="invalid" tooltip>
+                            {errors.description && errors.description.join('; ')}
+                        </Form.Control.Feedback>
+                    </Form.Group>
+                </Col>
+            </Row>
+
+            <Row>   
                 <Col sm={3}>
                     <Form.Group>
                         <Form.Label>From</Form.Label>
@@ -107,14 +119,6 @@ const Editor = ({record, setMode, setRecord, loadRecords, accounts}) => {
             </Row>    
             <Row>   
                 <Col sm={6}>
-                    <Form.Group>
-                        <Form.Label>Description</Form.Label>
-                        <Form.Control size="sm" value={record.description} onChange={handleDescriptionChange} isInvalid={!!errors.description}/>
-                        <Form.Control.Feedback type="invalid" tooltip>
-                            {errors.description && errors.description.join('; ')}
-                        </Form.Control.Feedback>
-                    </Form.Group>
-
                     <ButtonGroup>
                         <Button variant="secondary" type="button" onClick={handleBack}>Cancel</Button>
                         <Button variant="primary" type="button" onClick={handleSubmit}>Submit</Button>

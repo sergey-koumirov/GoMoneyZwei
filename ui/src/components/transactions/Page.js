@@ -3,11 +3,10 @@ import {listTransactions} from '../../api'
 import List from './List'
 import Editor from './Editor'
 
-const Page = () => {
+const Page = ({mode, setMode}) => {
 
     const [records, setRecords] = useState([])
     const [accounts, setAccounts] = useState([])
-    const [mode, setMode] = useState('')
     const [record, setRecord] = useState({})
     const [page, setPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1)

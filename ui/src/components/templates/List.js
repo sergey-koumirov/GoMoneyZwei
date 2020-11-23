@@ -58,6 +58,7 @@ const List = ({records, setRecord, setMode, loadRecords}) => {
                             return (
                                 <tr key={record.id}>
                                     <td><a href="#" onClick={ (e)=>{ setEditMode(record);e.preventDefault() } }>{record.id}</a></td>
+                                    <td>{record.description}</td>
                                     <td>{record.account_from.name}</td>
                                     <td className="text-right">
                                         {record.amount_from.toLocaleString()}
@@ -67,7 +68,6 @@ const List = ({records, setRecord, setMode, loadRecords}) => {
                                         {record.amount_to.toLocaleString()}
                                     </td>
                                     <td>{record.account_to.name}</td>
-                                    <td>{record.description}</td>
                                     <td>
                                         <Button variant="outline-primary" size="sm" onClick={()=>{handleShow(record)}}>Delete</Button>
                                     </td>
