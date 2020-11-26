@@ -22,8 +22,8 @@ const List = ({records, templates, setRecord, setMode, loadRecords, page, setPag
             description: '', 
             account_from: has ? template.account_from : {}, 
             account_to: has ? template.account_to : {}, 
-            amount_from: has ? template.amount_from : {}, 
-            amount_to: has ? template.amount_to : {}
+            amount_from: has ? template.amount_from : 0, 
+            amount_to: has ? template.amount_to : 0
         })
         setMode('new')
     }

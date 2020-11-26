@@ -23,3 +23,16 @@ go build -o gmz server/main.go
 
 ./gmz
 
+## todo
+
+use account.visible
+
+reports for month, last month, year
+
+converter
+
+account info by month
+
+filter transactions by account
+
+transaction number colored by accounts tags

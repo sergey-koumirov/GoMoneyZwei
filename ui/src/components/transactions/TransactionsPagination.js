@@ -3,7 +3,9 @@ import {Pagination} from "react-bootstrap"
 
 const TransactionsPagination = ({loadRecords, page, setPage, totalPages}) => {
     
-    const pages = Array.from(Array(totalPages))
+    const pages = Array.from(Array(totalPages > 20 ? 20 : totalPages))
+
+
 
     const handleClick = (newPage)=> {
         setPage(newPage)
@@ -21,12 +23,13 @@ const TransactionsPagination = ({loadRecords, page, setPage, totalPages}) => {
                     }else{
                         return(
                             <Pagination.Item key={i} active={false}>
-                                <span onClick={()=>{handleClick(i+1)}}>{i+1}</span>                        
-                            </Pagination.Item>                                
+                                <span onClick={()=>{handleClick(i+1)}}>{i+1}</span>
+                            </Pagination.Item>
                         )
                     }
                 })
             }
+            { totalPages > 20 ? "..." : "" }
         </Pagination>
     )
 
