@@ -25,14 +25,12 @@ go build -o gmz server/main.go
 
 ## todo
 
-use account.visible
-
-reports for month, last month, year
-
-converter
+use account.visible in transaction create
 
 account info by month
 
 filter transactions by account
 
 transaction number colored by accounts tags
+
+stocks stats income/outcome

@@ -52,6 +52,8 @@ func main() {
 		api.POST("/templates", controllers.TemplatesCreate)
 		api.PUT("/templates/:id", controllers.TemplatesUpdate)
 		api.DELETE("/templates/:id", controllers.TemplatesDelete)
+
+		api.GET("/reports", controllers.ReportsIndex)
 	}
 
 	r.Run()

@@ -125,4 +125,12 @@ export const deleteTemplate = async (payload) =>{
         })
 }
 
+// -------------------REPORTS--------------------------
+export const listReports = async () =>{
+    return await apiClient.get(`/api/reports`)
+        .then(({data: {reports}}) => {
+            return {reports};
+        })
+}
+
 export default apiClient

@@ -41,7 +41,7 @@ const List = ({records, setRecord, setMode, loadRecords}) => {
 
     return (
         <Row>
-            <Col>
+            <Col sm={6}>
                 <Table bordered size="sm">
                     <thead>
                         <tr>

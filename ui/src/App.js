@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Router } from "@reach/router";
-import Summary from "./components/Summary"
+import SummaryPage from "./components/summary/Index"
 import TransactionsPage from "./components/transactions/Page"
 import AccountsPage from "./components/accounts/Page"
 import CurrenciesPage from "./components/currencies/Page"
@@ -32,7 +32,7 @@ const App = () => {
                 </Nav.Item>                
             </Nav>    
             <Router>
-                <Summary path="/" />
+                <SummaryPage path="/" />
                 <TransactionsPage path="/transactions" mode={mode} setMode={setMode}/>
                 <TemplatesPage path="/templates" mode={mode} setMode={setMode}/>
                 <AccountsPage path="/accounts" mode={mode} setMode={setMode}/>

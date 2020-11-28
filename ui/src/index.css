@@ -1,5 +1,22 @@
+body {
+    background: #f0f0f0;
+}
+
 .nav.nav-pills {
     padding-bottom: 20px;
+}
+
+table {
+    background: #eefff0;
+    font-size: 13px;
+}
+
+#app .container{
+    max-width: 1400px;
+}
+
+#app .table-sm td, #app .table-sm th {
+    padding: .2rem;
 }
 
 table td .btn-sm {
