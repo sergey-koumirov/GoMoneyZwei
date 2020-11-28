@@ -13,7 +13,7 @@ func TemplatesIndex(c *gin.Context) {
 
 	templates := services.TemplatesIndex()
 
-	accounts := services.AccountsIndex()
+	accounts := services.AccountsIndex(true, "")
 
 	c.JSON(
 		200,

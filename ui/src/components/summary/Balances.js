@@ -8,9 +8,8 @@ const Balances = ({records}) => {
         <React.Fragment>
             {records.map((el)=>(
                 <tr key={el.AccountName}>
-                    <td></td>
                     <td>{el.AccountName}</td>
-                    <td className="text-right">{f(el.Amount)}</td>
+                    <td className="text-right mono">{f(el.Amount)}</td>
                 </tr>
             ))}
         </React.Fragment>
@@ -25,13 +24,11 @@ const Balances = ({records}) => {
                             <tr>
                                 <td>&nbsp;</td>
                                 <td></td>
-                                <td></td>
                             </tr>
                         ) : (null)}
                         <tr>
-                            <td>{el.key}</td>
-                            <td></td>
-                            <td className="text-right"><b>{f(el.Total)}</b></td>
+                            <td><b>{el.key}</b></td>
+                            <td className="text-right mono"><b>{f(el.Total)}</b></td>
                         </tr>
                         <DataRows records={el.Records}/>
                     </React.Fragment>

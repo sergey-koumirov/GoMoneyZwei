@@ -5,13 +5,13 @@ import {createTransaction, updateTransaction} from "../../api"
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const Editor = ({record, setMode, setRecord, loadRecords, accounts}) => {
+const Editor = ({record, setMode, setRecord, loadRecords, accountsI, accountsE}) => {
     const [errors, setErrors] = useState({})
     const [dt, setDt] = useState(new Date(record.dt));
 
     const handleAccountFromChange = (e)=>{
         const newID = parseInt(e.target.value)
-        const newAccount = accounts.find((el)=>{
+        const newAccount = accountsI.find((el)=>{
           return el.id === newID
         })
 
@@ -20,7 +20,7 @@ const Editor = ({record, setMode, setRecord, loadRecords, accounts}) => {
 
     const handleAccountToChange = (e)=>{
         const newID = parseInt(e.target.value)
-        const newAccount = accounts.find((el)=>{
+        const newAccount = accountsE.find((el)=>{
           return el.id === newID
         })
 
@@ -89,7 +89,7 @@ const Editor = ({record, setMode, setRecord, loadRecords, accounts}) => {
                         <Form.Label>From</Form.Label>
                         <Form.Control as="select" size="sm" value={record.account_from.id} onChange={handleAccountFromChange} isInvalid={!!errors.account_from}>
                             <option value="">---</option>
-                            {accounts.map(el=>(
+                            {accountsI.map(el=>(
                                 <option key={el.id} value={el.id}>{el.name}</option>
                             ))}
                         </Form.Control>
@@ -110,7 +110,7 @@ const Editor = ({record, setMode, setRecord, loadRecords, accounts}) => {
                         <Form.Label>To</Form.Label>
                         <Form.Control as="select" size="sm" value={record.account_to.id} onChange={handleAccountToChange} isInvalid={!!errors.account_to}>
                             <option value="">---</option>
-                            {accounts.map(el=>(
+                            {accountsE.map(el=>(
                                 <option key={el.id} value={el.id}>{el.name}</option>
                             ))}
                         </Form.Control>

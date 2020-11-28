@@ -17,7 +17,8 @@ func TransactionsIndex(c *gin.Context) {
 
 	transactions, totalPages := services.TransactionsIndex(page)
 
-	accounts := services.AccountsIndex()
+	accountsFI := services.AccountsIndex(true, "for_income")
+	accountsFE := services.AccountsIndex(true, "for_expense")
 
 	templates := services.TemplatesIndex()
 
@@ -25,7 +26,8 @@ func TransactionsIndex(c *gin.Context) {
 		200,
 		gin.H{
 			"transactions": transactions,
-			"accounts":     accounts,
+			"accounts_i":   accountsFI,
+			"accounts_e":   accountsFE,
 			"templates":    templates,
 			"page":         page,
 			"total_pages":  totalPages,

@@ -65,7 +65,7 @@ const List = ({records, templates, setRecord, setMode, loadRecords, page, setPag
                                     <td><a href="#" onClick={ (e)=>{ setEditMode(record);e.preventDefault() } }>{record.id}</a></td>
                                     <td><a href="#" onClick={ (e)=>{ setEditMode(record);e.preventDefault() } }>{record.dt}</a></td>
                                     <td>{record.account_from.name}</td>
-                                    <td className="text-right">
+                                    <td className="text-right mono">
                                         <MoneyText record={record}/>
                                     </td>
                                     <td>{record.account_to.name}</td>

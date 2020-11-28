@@ -10,7 +10,7 @@ import (
 
 //AccountsIndex - currencies list
 func AccountsIndex(c *gin.Context) {
-	accounts := services.AccountsIndex()
+	accounts := services.AccountsIndex(false, "")
 	currencies := services.CurrenciesIndex()
 	c.JSON(200, gin.H{"accounts": accounts, "currencies": currencies})
 }

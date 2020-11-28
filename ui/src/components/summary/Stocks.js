@@ -11,7 +11,7 @@ const Stocks = ({records}) => {
                     <React.Fragment key={el.key}>
                         <tr>
                             <td>{el.key}</td>
-                            <td className="text-right"><b>{i(el.Total)}</b></td>
+                            <td className="text-right mono"><b>{i(el.Total)}</b></td>
                         </tr>
                     </React.Fragment>
                 ))}

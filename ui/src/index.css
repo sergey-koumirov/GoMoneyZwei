@@ -19,6 +19,26 @@ table {
     padding: .2rem;
 }
 
+table td.mono{
+    font-family: Courier, monospace;
+    font-weight: 500;
+}
+
+td.mono .stocks {
+    color: #e09900;
+    font-weight: bold;
+}
+
+td.mono .income, td.mono .income-balance {
+    color: #248524;
+    font-weight: bold;
+}
+
+td.mono .balance, td.mono .balance-balance {
+    color: #242485;
+    font-weight: bold;
+}
+
 table td .btn-sm {
     padding-right: 0.5rem;
     padding-left: 0.5rem;
@@ -46,7 +66,6 @@ table th .btn-sm {
     vertical-align: text-bottom;
     display: inline-block;
 }
-
 
 .gray {
     color: #cccccc;

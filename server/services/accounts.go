@@ -7,9 +7,24 @@ import (
 )
 
 //AccountsIndex - load currencies
-func AccountsIndex() []structs.ViAccount {
+func AccountsIndex(visibleOnly bool, setType string) []structs.ViAccount {
 	records := make([]db.Account, 0)
-	db.DB.Preload("Currency").Find(&records)
+
+	scope := db.DB.Preload("Currency").Order("tag, name")
+
+	if visibleOnly {
+		scope = scope.Where("visible=1")
+	}
+
+	if setType == "for_income" {
+		scope = scope.Where("tag in ('income','balance','stocks')")
+	}
+
+	if setType == "for_expense" {
+		scope = scope.Where("tag in ('expense','balance','stocks')")
+	}
+
+	scope = scope.Find(&records)
 
 	result := make([]structs.ViAccount, len(records))
 

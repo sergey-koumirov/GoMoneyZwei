@@ -8,11 +8,10 @@ const Stats = ({records}) => {
         <React.Fragment>
             {records.map((el)=>(
                 <tr key={el.AccountName}>
-                    <td></td>
                     <td>{el.AccountName}</td>
-                    <td className="text-right">{f(el.Amount)}</td>
-                    <td className="text-right">{f(el.Percent)}</td>
-                    <td className="text-right">{f(el.SumPercent)}</td>
+                    <td className="text-right mono">{f(el.Amount)}</td>
+                    <td className="text-right mono">{f(el.Percent)}</td>
+                    <td className="text-right mono">{f(el.SumPercent)}</td>
                 </tr>
             ))}
         </React.Fragment>
@@ -29,13 +28,11 @@ const Stats = ({records}) => {
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
                             </tr>
                         ) : (null)}
                         <tr>
-                            <td>{el.key}</td>
-                            <td></td>
-                            <td className="text-right"><b>{f(el.Total)}</b></td>
+                            <td><b>{el.key}</b></td>
+                            <td className="text-right mono"><b>{f(el.Total)}</b></td>
                             <td className="text-right">%</td>
                             <td className="text-right">++%</td>
                         </tr>

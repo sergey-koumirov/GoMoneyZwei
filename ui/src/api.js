@@ -69,8 +69,8 @@ export const deleteAccount = async (payload) =>{
 // -------------------TRANSACTIONS--------------------------
 export const listTransactions = async (page) =>{
     return await apiClient.get(`/api/transactions?page=${page}`)
-        .then(({data: {transactions, page, total_pages, accounts, templates}}) => {
-            return {transactions, page, total_pages, accounts, templates};
+        .then(({data: {transactions, page, total_pages, accounts_i, accounts_e, templates}}) => {
+            return {transactions, page, total_pages, accounts_i, accounts_e, templates};
         })
 }
 
