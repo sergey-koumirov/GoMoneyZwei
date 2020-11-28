@@ -18,6 +18,7 @@ parcel ./ui/src/index.js --public-url /s/
 
 go build -o gmz server/main.go
 
+GOOS=windows GOARCH=386 go build -o gmz.exe server/main.go
 
 ## run 
 
@@ -26,7 +27,5 @@ go build -o gmz server/main.go
 ## todo
 
 account info by month
-
-filter transactions by account
 
 stocks stats income/outcome

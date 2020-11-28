@@ -13,8 +13,8 @@ const Page = ({mode, setMode}) => {
     const [page, setPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1)
 
-    const loadRecords = (page) =>{
-        listTransactions(page).then(({transactions, accounts_i, accounts_e, templates, page, total_pages})=>{ 
+    const loadRecords = (page, accFromID, accToID) =>{
+        listTransactions(page, accFromID, accToID).then(({transactions, accounts_i, accounts_e, templates, page, total_pages})=>{ 
             setRecords(transactions)
             setAccountsI(accounts_i)
             setAccountsE(accounts_e)

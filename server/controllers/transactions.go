@@ -10,12 +10,22 @@ import (
 
 //TransactionsIndex - transactions list
 func TransactionsIndex(c *gin.Context) {
-	page, err := strconv.Atoi(c.Query("page"))
-	if err != nil {
+	page, err1 := strconv.Atoi(c.Query("page"))
+	if err1 != nil {
 		page = 1
 	}
 
-	transactions, totalPages := services.TransactionsIndex(page)
+	accFromID, err2 := strconv.Atoi(c.Query("acc_from_id"))
+	if err2 != nil {
+		accFromID = 0
+	}
+
+	accToID, err3 := strconv.Atoi(c.Query("acc_to_id"))
+	if err3 != nil {
+		accToID = 0
+	}
+
+	transactions, totalPages := services.TransactionsIndex(page, accFromID, accToID)
 
 	accountsFI := services.AccountsIndex(true, "for_income")
 	accountsFE := services.AccountsIndex(true, "for_expense")

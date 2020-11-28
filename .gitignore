@@ -6,5 +6,6 @@ dist/index.js
 dist/index.js.map
 ui/node_modules
 gmz
+gmz.exe
 old.sqlite
 gmz-dev.sqlite

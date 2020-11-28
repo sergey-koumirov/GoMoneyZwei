@@ -67,8 +67,8 @@ export const deleteAccount = async (payload) =>{
 
 
 // -------------------TRANSACTIONS--------------------------
-export const listTransactions = async (page) =>{
-    return await apiClient.get(`/api/transactions?page=${page}`)
+export const listTransactions = async (page, accFromID, accToID) =>{
+    return await apiClient.get(`/api/transactions?page=${page}&acc_from_id=${!!accFromID ? accFromID : ''}&acc_to_id=${!!accToID ? accToID : ''}`)
         .then(({data: {transactions, page, total_pages, accounts_i, accounts_e, templates}}) => {
             return {transactions, page, total_pages, accounts_i, accounts_e, templates};
         })

@@ -9,15 +9,25 @@ import (
 )
 
 //TransactionsIndex - load transctions
-func TransactionsIndex(page int) ([]structs.ViTransaction, int64) {
+func TransactionsIndex(page int, accFromID int, accToID int) ([]structs.ViTransaction, int64) {
 	records := make([]db.Transaction, 0)
-	db.DB.
+
+	scope := db.DB.
 		Preload("AccountFrom.Currency").
 		Preload("AccountTo.Currency").
 		Order("dt desc, id desc").
 		Limit(perPage).
-		Offset((page - 1) * perPage).
-		Find(&records)
+		Offset((page - 1) * perPage)
+
+	if accFromID > 0 {
+		scope = scope.Where("account_from_id = ?", accFromID)
+	}
+
+	if accToID > 0 {
+		scope = scope.Where("account_to_id = ?", accToID)
+	}
+
+	scope = scope.Find(&records)
 
 	var count int64
 	db.DB.Model(db.Transaction{}).Count(&count)

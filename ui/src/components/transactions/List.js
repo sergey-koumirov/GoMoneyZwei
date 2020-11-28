@@ -48,7 +48,7 @@ const List = ({records, templates, setRecord, setMode, loadRecords, page, setPag
                 <Table bordered size="sm">
                     <thead>
                         <tr>
-                            <th colSpan="7" className="buttons">
+                            <th colSpan="6" className="buttons">
                                 <Button variant="outline-primary" size="sm" onClick={ ()=>{setNewMode()} }>New</Button>
                                 {
                                     templates.map((el,i)=>(
@@ -56,19 +56,25 @@ const List = ({records, templates, setRecord, setMode, loadRecords, page, setPag
                                     ))
                                 }
                             </th>
+                            <th><a href="#" onClick={ (e)=>{ loadRecords(1, null, null); e.preventDefault() } }>Reset</a>
+</th>
                         </tr>
                     </thead>
                     <tbody>
                         {records.map((record)=>{
                             return (
                                 <tr key={record.id}>
-                                    <td><a href="#" onClick={ (e)=>{ setEditMode(record);e.preventDefault() } }>{record.id}</a></td>
-                                    <td><a href="#" onClick={ (e)=>{ setEditMode(record);e.preventDefault() } }>{record.dt}</a></td>
-                                    <td>{record.account_from.name}</td>
+                                    <td><a href="#" onClick={ (e)=>{ setEditMode(record); e.preventDefault() } }>{record.id}</a></td>
+                                    <td><a href="#" onClick={ (e)=>{ setEditMode(record); e.preventDefault() } }>{record.dt}</a></td>
+                                    <td>                                        
+                                        <a href="#" onClick={ (e)=>{ loadRecords(1, record.account_from.id, null); e.preventDefault() } }>{record.account_from.name}</a>
+                                    </td>
                                     <td className="text-right mono">
                                         <MoneyText record={record}/>
                                     </td>
-                                    <td>{record.account_to.name}</td>
+                                    <td>
+                                        <a href="#" onClick={ (e)=>{ loadRecords(1, null, record.account_to.id); e.preventDefault() } }>{record.account_to.name}</a>
+                                    </td>
                                     <td>{record.description}</td>
                                     <td>
                                         <Button variant="outline-primary" size="sm" onClick={()=>{handleShow(record)}}>Delete</Button>
