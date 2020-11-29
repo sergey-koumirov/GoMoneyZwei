@@ -18,7 +18,15 @@ parcel ./ui/src/index.js --public-url /s/
 
 go build -o gmz server/main.go
 
-GOOS=windows GOARCH=386 go build -o gmz.exe server/main.go
+
+
+## build for win on osx
+
+brew install mingw-w64
+
+CGO_ENABLED=1 CC="i686-w64-mingw32-gcc" GOOS=windows GOARCH=386 go build -o gmz.exe server/main.go
+
+zip -r v001.zip ./gmz.exe ./gmz-dev.sqlite ./dist ./server/templates
 
 ## run 
 
