@@ -36,8 +36,17 @@ func TransactionsIndex(page int, accFromID int, accToID int) ([]structs.ViTransa
 
 	result := make([]structs.ViTransaction, len(records))
 
+	oddEven := int64(0)
 	for i, r := range records {
 		result[i].CopyFrom(r)
+		if i > 0 && result[i].Dt != result[i-1].Dt {
+			if oddEven == 0 {
+				oddEven = int64(1)
+			} else {
+				oddEven = int64(0)
+			}
+		}
+		result[i].OddEven = oddEven
 	}
 
 	return result, pages

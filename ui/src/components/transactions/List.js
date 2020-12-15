@@ -4,7 +4,7 @@ import {deleteTransaction} from "../../api"
 import MoneyText from "./MoneyText"
 import TransactionsPagination from "./TransactionsPagination"
 
-const List = ({records, templates, setRecord, setMode, loadRecords, page, setPage, totalPages}) => {
+const List = ({records, templates, setRecord, setMode, loadRecords, page, setPage, totalPages, today}) => {
 
     const [show, setShow] = useState(false);
     const [toDelete, setToDelete] = useState({});
@@ -42,6 +42,19 @@ const List = ({records, templates, setRecord, setMode, loadRecords, page, setPag
         setShow(false)
     }
 
+    const getDayClass = (record)=> {
+        if(record.dt == today){
+            return 'day-current'
+        }
+        if(record.odd_even == 0){
+            return 'day-even'
+        }
+        if(record.odd_even == 1){
+            return 'day-odd'
+        }
+        return ""
+    }
+
     return (
         <Row>
             <Col>
@@ -56,14 +69,15 @@ const List = ({records, templates, setRecord, setMode, loadRecords, page, setPag
                                     ))
                                 }
                             </th>
-                            <th><a href="#" onClick={ (e)=>{ loadRecords(1, null, null); e.preventDefault() } }>Reset</a>
-</th>
+                            <th>
+                                <Button variant="outline-primary" size="sm" onClick={ ()=>{loadRecords(1, null, null)} }>Reset</Button>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         {records.map((record)=>{
                             return (
-                                <tr key={record.id}>
+                                <tr key={record.id} className={getDayClass(record)}>
                                     <td><a href="#" onClick={ (e)=>{ setEditMode(record); e.preventDefault() } }>{record.id}</a></td>
                                     <td><a href="#" onClick={ (e)=>{ setEditMode(record); e.preventDefault() } }>{record.dt}</a></td>
                                     <td>                                        

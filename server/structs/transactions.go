@@ -11,6 +11,7 @@ type ViTransaction struct {
 	AmountFrom  float64   `json:"amount_from"`
 	AccountTo   ViAccount `json:"account_to"`
 	AmountTo    float64   `json:"amount_to"`
+	OddEven     int64     `json:"odd_even"`
 }
 
 //CopyFrom - copy

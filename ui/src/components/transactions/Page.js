@@ -12,9 +12,10 @@ const Page = ({mode, setMode}) => {
     const [record, setRecord] = useState({})
     const [page, setPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1)
+    const [today, setToday] = useState("")
 
     const loadRecords = (page, accFromID, accToID) =>{
-        listTransactions(page, accFromID, accToID).then(({transactions, accounts_i, accounts_e, templates, page, total_pages})=>{ 
+        listTransactions(page, accFromID, accToID).then(({transactions, accounts_i, accounts_e, templates, page, total_pages, current_date})=>{ 
             setRecords(transactions)
             setAccountsI(accounts_i)
             setAccountsE(accounts_e)
@@ -22,6 +23,7 @@ const Page = ({mode, setMode}) => {
             setMode('list')
             setPage(page)
             setTotalPages(total_pages)
+            setToday(current_date)
         })
     }
 
@@ -38,7 +40,8 @@ const Page = ({mode, setMode}) => {
                   loadRecords={loadRecords}
                   page={page}
                   setPage={setPage}
-                  totalPages={totalPages}/>
+                  totalPages={totalPages}
+                  today={today}/>
         )
     }else if(mode == 'new' || mode == 'edit'){
         return (<Editor record={ record } 

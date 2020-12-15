@@ -4,6 +4,7 @@ import (
 	"GoMoneyZwei/server/services"
 	"fmt"
 	"strconv"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -41,6 +42,7 @@ func TransactionsIndex(c *gin.Context) {
 			"templates":    templates,
 			"page":         page,
 			"total_pages":  totalPages,
+			"current_date": time.Now().Format("2006-01-02"),
 		},
 	)
 }

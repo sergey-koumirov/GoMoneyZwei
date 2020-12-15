@@ -3,7 +3,7 @@ import {Pagination} from "react-bootstrap"
 
 const TransactionsPagination = ({loadRecords, page, setPage, totalPages}) => {
     
-    const pages = Array.from(Array(totalPages > 20 ? 20 : totalPages))
+    const pages = Array.from(Array(totalPages > 40 ? 40 : totalPages))
 
 
 

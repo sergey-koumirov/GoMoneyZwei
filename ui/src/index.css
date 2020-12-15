@@ -39,6 +39,18 @@ td.mono .balance, td.mono .balance-balance {
     font-weight: bold;
 }
 
+tr.day-current {
+    background: #f0eeff;
+}
+
+tr.day-even {
+    background: #eefff0;
+}
+
+tr.day-odd {
+    background: #e0fff0;
+}
+
 table td .btn-sm {
     padding-right: 0.5rem;
     padding-left: 0.5rem;
