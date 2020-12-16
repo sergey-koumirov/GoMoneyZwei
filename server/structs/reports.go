@@ -28,4 +28,21 @@ type ViReports struct {
 	CurrentDate     string
 	CurrentMonth    string
 	PreviousMonth   string
+
+	IOStats []ViAccountIORecord
+}
+
+//ViCurrencyIORecord - model
+type ViCurrencyIORecord struct {
+	CurrencyCode string
+	Amount       float64
+}
+
+//ViAccountIORecord - model
+type ViAccountIORecord struct {
+	AccountID    int64
+	AccountName  string
+	CurrencyCode string
+	Incoming     []ViCurrencyIORecord
+	Outcoming    []ViCurrencyIORecord
 }

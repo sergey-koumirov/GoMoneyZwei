@@ -47,12 +47,11 @@ const Index = () => {
                     </Col>
                 </Row>                
             </Col>
-            <Col sm={1}></Col>
-            <Col sm={3}>
+            <Col sm={4}>
                 <h5>Balances</h5>
                 <Balances records={records.MoneyRests}/>
                 <h5>Stocks</h5>
-                <Stocks records={records.StocksRests}/>                
+                <Stocks records={records.IOStats} rests={records.StocksRests}/>
             </Col>
         </Row>
     );

@@ -28,7 +28,8 @@ const Page = ({mode, setMode}) => {
     }
 
     useEffect(() => {        
-        loadRecords(1)
+        const params = new URLSearchParams(window.location.search)  
+        loadRecords(1, params.get("acc_from_id"), params.get("acc_to_id"))
     }, []);
 
     if(mode == 'list'){

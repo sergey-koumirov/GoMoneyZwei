@@ -50,6 +50,8 @@ func ReportsIndex() structs.ViReports {
 		CurrentDate:   time.Now().Format("2006-01-02"),
 		CurrentMonth:  time.Now().Month().String(),
 		PreviousMonth: prevMonth.String(),
+
+		IOStats: inOutStatistics("stocks"),
 	}
 }
 
@@ -138,4 +140,110 @@ func extract(rows *sql.Rows) map[string]structs.ViAccountsInfo {
 	}
 
 	return result
+}
+
+func inOutStatistics(tag string) []structs.ViAccountIORecord {
+	incoming := incomingStatistics(tag)
+	outcoming := outcomingStatistics(tag)
+
+	accounts := make([]db.Account, 0)
+	db.DB.Preload("Currency").Where("tag = ?", tag).Order("name").Find(&accounts)
+
+	currencies := make([]db.Currency, 0)
+	db.DB.Order("tag, code").Find(&currencies)
+
+	result := make([]structs.ViAccountIORecord, len(accounts))
+
+	for i, acc := range accounts {
+		result[i].AccountID = acc.ID
+		result[i].AccountName = acc.Name
+		result[i].CurrencyCode = acc.Currency.Code
+		result[i].Incoming = make([]structs.ViCurrencyIORecord, 0)
+		result[i].Outcoming = make([]structs.ViCurrencyIORecord, 0)
+
+		for _, cur := range currencies {
+			inSt, exICode := incoming[cur.Code]
+			if exICode {
+				inAm, exIAcc := inSt[acc.ID]
+				if exIAcc {
+					result[i].Incoming = append(result[i].Incoming, structs.ViCurrencyIORecord{CurrencyCode: cur.Code, Amount: inAm})
+				}
+			}
+
+			outSt, exOCode := outcoming[cur.Code]
+			if exOCode {
+				outAm, exOAcc := outSt[acc.ID]
+				if exOAcc {
+					result[i].Outcoming = append(result[i].Outcoming, structs.ViCurrencyIORecord{CurrencyCode: cur.Code, Amount: outAm})
+				}
+			}
+		}
+
+	}
+
+	return result
+}
+
+func incomingStatistics(tag string) map[string]map[int64]float64 {
+	rows, e1 := db.DB.Raw(
+		`select a.id as AccountID, c_f.code as CurrencyCode, sum(t.amount_from) / 100.0 as Amount
+		   from accounts a
+			      inner join transactions t on t.account_to_id = a.id
+			      inner join accounts a_f on a_f.id = t.account_from_id
+			      inner join currencies c_f on c_f.id = a_f.currency_id
+		   where a.tag = ? and a.visible=1
+		   group by a.id, c_f.id`,
+		tag,
+	).Rows()
+
+	if e1 != nil {
+		fmt.Println(e1)
+	}
+	defer rows.Close()
+
+	return extractStatistics(rows)
+}
+
+func outcomingStatistics(tag string) map[string]map[int64]float64 {
+	rows, e1 := db.DB.Raw(
+		`select a.id as AccountID, c_t.code as CurrencyCode, sum(t.amount_to) / 100.0 as Amount
+			from accounts a
+				inner join transactions t on t.account_from_id = a.id
+				inner join accounts a_t on a_t.id = t.account_to_id
+				inner join currencies c_t on c_t.id = a_t.currency_id
+		 where a.tag = ? and a.visible=1
+		 group by a.id, c_t.id`,
+		tag,
+	).Rows()
+
+	if e1 != nil {
+		fmt.Println(e1)
+	}
+	defer rows.Close()
+
+	return extractStatistics(rows)
+}
+
+func extractStatistics(rows *sql.Rows) map[string]map[int64]float64 {
+
+	result := make(map[string]map[int64]float64)
+
+	for rows.Next() {
+		var (
+			accountID int64
+			code      string
+			amount    float64
+		)
+		rows.Scan(&accountID, &code, &amount)
+
+		_, ex := result[code]
+		if !ex {
+			result[code] = make(map[int64]float64)
+		}
+
+		result[code][accountID] = amount
+	}
+
+	return result
+
 }

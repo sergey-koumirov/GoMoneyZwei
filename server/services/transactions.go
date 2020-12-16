@@ -19,12 +19,16 @@ func TransactionsIndex(page int, accFromID int, accToID int) ([]structs.ViTransa
 		Limit(perPage).
 		Offset((page - 1) * perPage)
 
-	if accFromID > 0 {
+	if accFromID > 0 && accToID == 0 {
 		scope = scope.Where("account_from_id = ?", accFromID)
 	}
 
-	if accToID > 0 {
+	if accFromID == 0 && accToID > 0 {
 		scope = scope.Where("account_to_id = ?", accToID)
+	}
+
+	if accFromID > 0 && accToID > 0 {
+		scope = scope.Where("account_from_id = ? or account_to_id = ?", accFromID, accToID)
 	}
 
 	scope = scope.Find(&records)
