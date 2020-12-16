@@ -2,7 +2,7 @@ import React from "react";
 import {Table} from "react-bootstrap"
 import {f, toSortedArray} from "../../utils"
 
-const Balances = ({records}) => {
+const Balances = ({records, tableClass}) => {
 
     const DataRows = ({records})=>(
         <React.Fragment>
@@ -16,7 +16,7 @@ const Balances = ({records}) => {
     )
 
     return (
-        <Table bordered size="sm">
+        <Table bordered size="sm" className={tableClass}>
             <tbody>
                 {toSortedArray(records).map( (el, i)=>(
                     <React.Fragment key={el.key}>

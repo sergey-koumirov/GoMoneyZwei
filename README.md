@@ -36,6 +36,4 @@ zip -r v001.zip ./gmz.exe ./gmz-dev.sqlite ./dist ./server/templates
 
 account info by month
 
-stocks stats income/outcome
-
 predefined comment text

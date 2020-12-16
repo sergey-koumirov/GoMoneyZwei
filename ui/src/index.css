@@ -1,5 +1,5 @@
 body {
-    background: #f0f0f0;
+    background: #ff00f0;
 }
 
 .nav.nav-pills {
@@ -9,6 +9,23 @@ body {
 table {
     background: #eefff0;
     font-size: 13px;
+}
+
+.table.table-bordered td, .table.table-bordered th {
+    border: 1px solid #d0efd0;
+}
+
+table.main {
+    background: #e0ffe0;
+    border: none;
+}
+
+table.main td, table.main th{
+    border: none;
+}
+
+table.main tr:nth-of-type(2n) {
+    background: #d0efd0;
 }
 
 #app .container{

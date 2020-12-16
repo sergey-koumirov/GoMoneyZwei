@@ -49,7 +49,7 @@ const Index = () => {
             </Col>
             <Col sm={4}>
                 <h5>Balances</h5>
-                <Balances records={records.MoneyRests}/>
+                <Balances records={records.MoneyRests} tableClass="main"/>
                 <h5>Stocks</h5>
                 <Stocks records={records.IOStats} rests={records.StocksRests}/>
             </Col>
