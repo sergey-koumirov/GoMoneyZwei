@@ -64,6 +64,8 @@ const Editor = ({record, setMode, setRecord, loadRecords, accountsI, accountsE})
         setMode('list')
     }
 
+    const handleFocus = (event) => event.target.select();
+
     return (
         <>
             <Row>
@@ -99,7 +101,13 @@ const Editor = ({record, setMode, setRecord, loadRecords, accountsI, accountsE})
                     </Form.Group>
 
                     <Form.Group>
-                        <Form.Control size="sm" value={record.amount_from} onChange={handleAmountFromChange} isInvalid={!!errors.amount_from}/>
+                        <Form.Control 
+                          size="sm" 
+                          value={record.amount_from} 
+                          onChange={handleAmountFromChange} 
+                          isInvalid={!!errors.amount_from}
+                          autoFocus
+                          onFocus={handleFocus}/>
                         <Form.Control.Feedback type="invalid" tooltip>
                             {errors.amount_from && errors.amount_from.join('; ')}
                         </Form.Control.Feedback>
@@ -120,7 +128,12 @@ const Editor = ({record, setMode, setRecord, loadRecords, accountsI, accountsE})
                     </Form.Group>
 
                     <Form.Group>
-                        <Form.Control size="sm" value={record.amount_to} onChange={handleAmountToChange} isInvalid={!!errors.amount_to}/>
+                        <Form.Control 
+                          size="sm" 
+                          value={record.amount_to} 
+                          onChange={handleAmountToChange} 
+                          isInvalid={!!errors.amount_to}
+                          onFocus={handleFocus}/>
                         <Form.Control.Feedback type="invalid" tooltip>
                             {errors.amount_to && errors.amount_to.join('; ')}
                         </Form.Control.Feedback>
@@ -139,7 +152,7 @@ const Editor = ({record, setMode, setRecord, loadRecords, accountsI, accountsE})
 
                     <ButtonGroup>
                         <Button variant="secondary" type="button" onClick={handleBack}>Cancel</Button>
-                        <Button variant="primary" type="button" onClick={handleSubmit}>Submit</Button>
+                        <Button variant="primary" type="submit" onClick={handleSubmit}>Submit</Button>
                     </ButtonGroup>
                 </Col>
             </Row>
