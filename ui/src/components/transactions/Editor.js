@@ -40,15 +40,18 @@ const Editor = ({record, setMode, setRecord, loadRecords, accountsI, accountsE})
     }
 
     const handleSubmit = ()=>{
-        const f = !!record.id ? updateTransaction : createTransaction
+        const f = !!record.id ? updateTransaction : createTransaction,
+              amount_from = typeof record.amount_from == "string" ? parseFloat( record.amount_from.replace(',','.') ) : record.amount_from,
+              amount_to = typeof record.amount_to == "string" ? parseFloat( record.amount_to.replace(',','.') ) : record.amount_to
+
         const payload = {
             id: record.id,
             description: record.description,
             dt: `${dt.getFullYear()}-${dt.getMonth()+1}-${dt.getDate()}`,
             account_from_id: record.account_from.id,
             account_to_id: record.account_to.id,
-            amount_from: parseFloat(record.amount_from),
-            amount_to: parseFloat(record.amount_to),
+            amount_from: amount_from,
+            amount_to: amount_to,
         }
 
         f(payload).then(({transaction, errors})=>{

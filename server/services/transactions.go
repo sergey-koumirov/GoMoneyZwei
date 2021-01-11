@@ -136,12 +136,12 @@ func validateAndSetTransaction(params map[string]interface{}, result *db.Transac
 
 	amountFromValid := !validateIsNil("amount_from", params["amount_from"], errors)
 	if amountFromValid {
-		result.AmountFrom = int64(params["amount_from"].(float64) * 100)
+		result.AmountFrom = int64(math.Round(params["amount_from"].(float64) * 100))
 	}
 
 	amountToValid := !validateIsNil("amount_to", params["amount_to"], errors)
 	if amountToValid {
-		result.AmountTo = int64(params["amount_to"].(float64) * 100)
+		result.AmountTo = int64(math.Round(params["amount_to"].(float64) * 100))
 	}
 
 }
