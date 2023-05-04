@@ -21,7 +21,7 @@ const Stats = ({records}) => {
     )
 
     return (
-        <Table bordered size="sm">
+        <Table bordered size="sm main">
             <tbody>
                 {toSortedArray(records).map( (el,i)=>(
                     <React.Fragment key={el.key}>
