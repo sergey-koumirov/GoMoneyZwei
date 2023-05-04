@@ -5,6 +5,7 @@ dist/index.css.map
 dist/index.js
 dist/index.js.map
 ui/node_modules
+ui/.parcel-cache
 gmz
 gmz.exe
 old.sqlite

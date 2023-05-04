@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-//TransactionsIndex - load transctions
+// TransactionsIndex - load transctions
 func TransactionsIndex(page int, accFromID int, accToID int) ([]structs.ViTransaction, int64) {
 	records := make([]db.Transaction, 0)
 
@@ -56,7 +56,7 @@ func TransactionsIndex(page int, accFromID int, accToID int) ([]structs.ViTransa
 	return result, pages
 }
 
-//TransactionsCreate - create
+// TransactionsCreate - create
 func TransactionsCreate(params map[string]interface{}) (db.Transaction, structs.RecordErrors) {
 	errors := make(structs.RecordErrors)
 	result := db.Transaction{}
@@ -80,7 +80,7 @@ func TransactionsCreate(params map[string]interface{}) (db.Transaction, structs.
 	return result, errors
 }
 
-//TransactionsUpdate - update
+// TransactionsUpdate - update
 func TransactionsUpdate(id int64, params map[string]interface{}) (db.Transaction, structs.RecordErrors) {
 	errors := make(structs.RecordErrors)
 	result := db.Transaction{ID: id}
@@ -88,13 +88,23 @@ func TransactionsUpdate(id int64, params map[string]interface{}) (db.Transaction
 	validateAndSetTransaction(params, &result, errors)
 
 	if len(errors) == 0 {
+		accFrom := db.Account{ID: result.AccountFromID}
+		accTo := db.Account{ID: result.AccountToID}
+
+		db.DB.Find(&accFrom)
+		db.DB.Find(&accTo)
+
+		if accFrom.CurrencyID == accTo.CurrencyID {
+			result.AmountTo = result.AmountFrom
+		}
+
 		db.DB.Save(&result)
 	}
 
 	return result, errors
 }
 
-//TransactionsDelete - delete
+// TransactionsDelete - delete
 func TransactionsDelete(id int64) structs.RecordErrors {
 	errors := make(structs.RecordErrors)
 	result := db.Transaction{ID: id}

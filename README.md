@@ -3,6 +3,8 @@
 
 ## pre-dev
 
+cd ./ui
+
 npm install --save react
 
 npm install --save react-dom
@@ -14,7 +16,7 @@ npm install --save parcel-bundler
 
 go run server/main.go
 
-parcel ./ui/src/index.js --public-url /s/
+./ui/node_modules/.bin/parcel --public-url=/s/ --no-hmr ./ui/src/index.js
 
 go build -o gmz server/main.go
 

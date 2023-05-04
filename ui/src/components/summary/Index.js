@@ -6,7 +6,6 @@ import Stocks from './Stocks'
 import Stats from './Stats'
 
 const Index = () => {
-
     const [records, setRecords] = useState({})
 
     useEffect(() => {        

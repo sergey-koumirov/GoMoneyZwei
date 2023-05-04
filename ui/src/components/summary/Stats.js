@@ -1,6 +1,7 @@
 import React from "react";
 import {Table} from "react-bootstrap"
 import {f, toSortedArray} from "../../utils"
+import { Link } from "@reach/router";
 
 const Stats = ({records}) => {
 
@@ -8,7 +9,9 @@ const Stats = ({records}) => {
         <React.Fragment>
             {records.map((el)=>(
                 <tr key={el.AccountName}>
-                    <td>{el.AccountName}</td>
+                    <td>
+                        <Link to={`/transactions?acc_from_id=${el.AccountID}&acc_to_id=${el.AccountID}`}>{el.AccountName}</Link>
+                    </td>
                     <td className="text-right mono">{f(el.Amount)}</td>
                     <td className="text-right mono">{f(el.Percent)}</td>
                     <td className="text-right mono">{f(el.SumPercent)}</td>

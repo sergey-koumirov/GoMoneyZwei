@@ -10,9 +10,6 @@ const Editor = ({record, setMode, setRecord, loadRecords, currencies}) => {
     }
 
     const handleCurrencyChange = (e)=>{
-
-        console.log(e.target.value)
-
         const newID = parseInt(e.target.value)
         const newCurrency = currencies.find((el)=>{
           return el.id === newID

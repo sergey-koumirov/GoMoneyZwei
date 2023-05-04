@@ -1,7 +1,8 @@
 package structs
 
-//ViAccountRecord - model
+// ViAccountRecord - model
 type ViAccountRecord struct {
+	AccountID    int64
 	AccountName  string
 	CurrencyCode string
 	Amount       float64
@@ -9,13 +10,13 @@ type ViAccountRecord struct {
 	SumPercent   float64
 }
 
-//ViAccountsInfo - model
+// ViAccountsInfo - model
 type ViAccountsInfo struct {
 	Records []ViAccountRecord
 	Total   float64
 }
 
-//ViReports - model
+// ViReports - model
 type ViReports struct {
 	MoneyRests      map[string]ViAccountsInfo
 	StocksRests     map[string]ViAccountsInfo
@@ -32,13 +33,13 @@ type ViReports struct {
 	IOStats []ViAccountIORecord
 }
 
-//ViCurrencyIORecord - model
+// ViCurrencyIORecord - model
 type ViCurrencyIORecord struct {
 	CurrencyCode string
 	Amount       float64
 }
 
-//ViAccountIORecord - model
+// ViAccountIORecord - model
 type ViAccountIORecord struct {
 	AccountID    int64
 	AccountName  string

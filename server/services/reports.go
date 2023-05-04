@@ -10,7 +10,7 @@ import (
 	"github.com/jinzhu/now"
 )
 
-//ReportsIndex - load reports
+// ReportsIndex - load reports
 func ReportsIndex() structs.ViReports {
 
 	prevD := 1
@@ -56,7 +56,8 @@ func ReportsIndex() structs.ViReports {
 }
 
 func expenseForPeriod(fromDate string, toDate string) map[string]structs.ViAccountsInfo {
-	sql := `select a.name as AccountName,
+	sql := `select a.id as AccountID,
+	               a.name as AccountName,
 		           c.code as CurrencyCode,
 		           ifnull( (select sum(t.amount_to) from transactions t where t.account_to_id = a.id and t.dt >= ? and t.dt <= ?), 0) / 100.0 as Amount
 		      from accounts a
@@ -85,7 +86,8 @@ func expenseForPeriod(fromDate string, toDate string) map[string]structs.ViAccou
 }
 
 func incomeForPeriod(fromDate string, toDate string) map[string]structs.ViAccountsInfo {
-	sql := `select a.name as AccountName,
+	sql := `select a.id as AccountID,
+	               a.name as AccountName,
 		           c.code as CurrencyCode,
 		           ifnull( (select sum(t.amount_from) from transactions t where t.account_from_id = a.id and t.dt >= ? and t.dt <= ?), 0) / 100.0 as Amount
 		      from accounts a
@@ -104,7 +106,8 @@ func incomeForPeriod(fromDate string, toDate string) map[string]structs.ViAccoun
 
 func accountsRest(tag string) map[string]structs.ViAccountsInfo {
 	rows, e1 := db.DB.Raw(
-		`select a.name as AccountName,
+		`select a.id as AccountID,
+		        a.name as AccountName,
 		        c.code as CurrencyCode,
 		        (ifnull((select sum(t2.amount_to) from transactions t2 where t2.account_to_id = a.id), 0) -
 				  ifnull((select sum(t1.amount_from) from transactions t1 where t1.account_from_id = a.id), 0)) / 100.0 as Amount
@@ -128,7 +131,7 @@ func extract(rows *sql.Rows) map[string]structs.ViAccountsInfo {
 
 	for rows.Next() {
 		item := structs.ViAccountRecord{}
-		rows.Scan(&item.AccountName, &item.CurrencyCode, &item.Amount)
+		rows.Scan(&item.AccountID, &item.AccountName, &item.CurrencyCode, &item.Amount)
 
 		v, ex := result[item.CurrencyCode]
 		if !ex {
