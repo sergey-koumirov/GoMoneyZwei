@@ -28,9 +28,9 @@ brew install mingw-w64
 
 CGO_ENABLED=1 CC="i686-w64-mingw32-gcc" GOOS=windows GOARCH=386 go build -o gmz.exe server/main.go
 
-parcel build ./ui/src/index.js --no-source-maps --public-url /s/
+./ui/node_modules/.bin/parcel build ./ui/src/index.js --no-source-maps --public-url /s/
 
-zip -r gmz-v002.zip ./gmz.exe ./gmz-dev.sqlite ./dist ./server/templates
+zip -r gmz-v003.zip ./gmz.exe ./gmz-dev.sqlite ./dist ./server/templates
 
 ## run 
 

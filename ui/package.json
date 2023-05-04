@@ -2,7 +2,6 @@
   "name": "go-money-zwei",
   "version": "1.0.0",
   "description": "",
-  "main": "/s/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,7 +18,8 @@
     "react": "^16.14.0",
     "react-bootstrap": "^1.4.0",
     "react-datepicker": "^3.3.0",
-    "react-dom": "^16.14.0"
+    "react-dom": "^16.14.0",
+    "regenerator-runtime": "^0.13.11"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",

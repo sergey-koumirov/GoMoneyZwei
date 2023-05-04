@@ -1,0 +1,100 @@
+body {
+  background: #ff00f0;
+}
+
+.nav.nav-pills {
+  padding-bottom: 20px;
+}
+
+table {
+  background: #eefff0;
+  font-size: 13px;
+}
+
+.table.table-bordered td, .table.table-bordered th {
+  border: 1px solid #d0efd0;
+}
+
+table.main {
+  background: #e0ffe0;
+  border: none;
+}
+
+table.main td, table.main th {
+  border: none;
+}
+
+table.main tr:nth-of-type(2n) {
+  background: #d0efd0;
+}
+
+#app .container {
+  max-width: 1400px;
+}
+
+#app .table-sm td, #app .table-sm th {
+  padding: .2rem;
+}
+
+table td.mono {
+  font-family: Courier, monospace;
+  font-weight: 500;
+}
+
+td.mono .stocks {
+  color: #e09900;
+  font-weight: bold;
+}
+
+td.mono .income, td.mono .income-balance {
+  color: #248524;
+  font-weight: bold;
+}
+
+td.mono .balance, td.mono .balance-balance {
+  color: #242485;
+  font-weight: bold;
+}
+
+tr.day-current {
+  background: #f0eeff;
+}
+
+tr.day-even {
+  background: #eefff0;
+}
+
+tr.day-odd {
+  background: #e0fff0;
+}
+
+table td .btn-sm {
+  padding: 0 .5rem;
+  font-size: x-small;
+}
+
+table th .btn-sm {
+  padding: 0 .5rem;
+}
+
+.form-group {
+  position: relative;
+}
+
+.currency {
+  color: #999;
+  vertical-align: text-bottom;
+  margin-left: 2px;
+  margin-right: 6px;
+  font-size: xx-small;
+  display: inline-block;
+}
+
+.gray {
+  color: #ccc;
+}
+
+.buttons button {
+  margin-right: 12px;
+}
+
