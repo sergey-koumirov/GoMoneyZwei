@@ -13,6 +13,7 @@ const Stocks = ({records, rests}) => {
                     <th></th>
                     <th className="text-center">Qty</th>
                     <th className="text-center">Out</th>
+                    <th className="text-center">Sell</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,6 +43,9 @@ const Stocks = ({records, rests}) => {
                                         <br/>
                                     </React.Fragment>
                                 ))}
+                            </td>
+                            <td className="text-right">
+                                { f(el.RecommendedPrice) }
                             </td>                        
                         </tr>
                     </React.Fragment>

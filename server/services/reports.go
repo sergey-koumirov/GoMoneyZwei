@@ -163,6 +163,7 @@ func inOutStatistics(tag string) []structs.ViAccountIORecord {
 		result[i].CurrencyCode = acc.Currency.Code
 		result[i].Incoming = make([]structs.ViCurrencyIORecord, 0)
 		result[i].Outcoming = make([]structs.ViCurrencyIORecord, 0)
+		result[i].RecommendedPrice = averageStockPrice(acc.ID)
 
 		for _, cur := range currencies {
 			inSt, exICode := incoming[cur.Code]
@@ -185,6 +186,30 @@ func inOutStatistics(tag string) []structs.ViAccountIORecord {
 	}
 
 	return result
+}
+
+func averageStockPrice(AccountID int64) float64 {
+	var outSum int64
+	db.DB.Raw(
+		`select sum(amount_from) as ss from transactions where account_from_id = ?`,
+		AccountID,
+	).Scan(&outSum)
+
+	var result float64
+	db.DB.Raw(
+		`select sum( x.amount_from * x.ss / x.amount_to ) / sum(x.ss / 100.0) as avg_price
+		    from(
+		        select *,
+				    sum(amount_to) over( order by id desc ROWS BETWEEN UNBOUNDED PRECEDING and CURRENT ROW) - ? as ss
+			        from transactions
+			    where account_to_id = ?
+		    ) x
+		where x.ss > 0`,
+		outSum,
+		AccountID,
+	).Scan(&result)
+
+	return result / 100.0
 }
 
 func incomingStatistics(tag string) map[string]map[int64]float64 {

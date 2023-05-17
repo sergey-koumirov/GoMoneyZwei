@@ -41,9 +41,10 @@ type ViCurrencyIORecord struct {
 
 // ViAccountIORecord - model
 type ViAccountIORecord struct {
-	AccountID    int64
-	AccountName  string
-	CurrencyCode string
-	Incoming     []ViCurrencyIORecord
-	Outcoming    []ViCurrencyIORecord
+	AccountID        int64
+	AccountName      string
+	CurrencyCode     string
+	Incoming         []ViCurrencyIORecord
+	Outcoming        []ViCurrencyIORecord
+	RecommendedPrice float64
 }
